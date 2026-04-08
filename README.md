@@ -32,13 +32,10 @@ The Hotel Management System (HMS) is a web-based application designed to digital
         The backend handles business logic and data processing
         A centralized database ensures real-time updates and consistency
 
-🎯 Objectives
-    Reduce manual work and human errors
-    Improve reservation and guest management efficiency
-    Provide real-time data access for decision-making
-    Enhance overall customer satisfaction
+    🎯 Objectives
+        Reduce manual work and human errors
+        Improve reservation and guest management efficiency
+        Provide real-time data access for decision-making
+        Enhance overall customer satisfaction
     
-🔒 Security
-    Role-based access control
-    Encrypted password storage
-    Input validation to prevent malicious data
+   
