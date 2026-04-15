@@ -1,0 +1,1059 @@
+{
+  "diagramType": 2,
+  "data": {
+    "nodes": [
+      {
+        "id": "cb591adb-3793-4492-b7c8-e7d6f9699a21",
+        "type": "Table",
+        "position": {
+          "x": 578.2397064727566,
+          "y": 346.1971103663749
+        },
+        "data": {
+          "label": "Guest",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "85486b3d-de0a-436d-ba64-7fe99ba12f0d",
+              "name": "GuestID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "b1632f36-3d4d-41f7-b2b8-ea0406fd33b9",
+              "name": "First_Name",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "1802a735-1d13-4b06-8226-c7574265ab11",
+              "name": "Last_Name",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "068dad42-5f4e-4f8d-97de-71afcfdb3bad",
+              "name": "Phone",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "3ef2a721-388b-4429-95ac-c9b82972f53a",
+              "name": "Address",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "d85034de-b6f5-4268-a4b3-dab1b1622ed4",
+              "name": "Registration_Date",
+              "type": "DATE",
+              "position": 0
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 176
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "ccd11be3-2b32-46e7-bbe4-2560876f96be",
+        "type": "Table",
+        "position": {
+          "x": 910,
+          "y": 230
+        },
+        "data": {
+          "label": "Staff",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "7652e226-0794-426a-8672-cf0e45234dca",
+              "name": "Staff_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "bb829b48-d40c-4983-8ae8-32d6ffecdc47",
+              "name": "Name",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "10aee639-af66-405e-9c03-ff972ec4bd05",
+              "name": "Email",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "d387c4fc-cad6-46cd-9703-dd61ec01932d",
+              "name": "Password",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "137de6f4-933d-4b79-a8cd-4d9463fec152",
+              "name": "Role",
+              "type": "VARCHAR(n)",
+              "position": 0
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 151
+        },
+        "selected": false
+      },
+      {
+        "id": "025c7b28-0343-4b00-a71d-f97285024b65",
+        "type": "Table",
+        "position": {
+          "x": 910,
+          "y": 230
+        },
+        "data": {
+          "label": "Reservation",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "7f9c7cbf-3d68-4777-88fa-e2e4488b4124",
+              "name": "Reservation_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "8a669175-2205-4ffb-b1c2-72e860c1357b",
+              "name": "Check-In_Date",
+              "type": "DATE",
+              "position": 0
+            },
+            {
+              "id": "b54913ec-58be-482e-ae27-256d5ed9f172",
+              "name": "Check-Out_Date",
+              "type": "DATE",
+              "position": 0
+            },
+            {
+              "id": "b13abb2b-fe9a-417f-8972-b31278d97c37",
+              "name": "Total_Price",
+              "type": "NUMERIC(p s)",
+              "position": 0
+            },
+            {
+              "id": "b41905f9-a448-4dec-9a99-fc40bbf466a5",
+              "name": "Status",
+              "type": "VARCHAR(n)",
+              "position": 0
+            },
+            {
+              "id": "fk_738d1862-4c01-40c1-bd04-8cd427845e3d",
+              "name": "fk_Guest",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "690a12cc-9fa9-4183-8d22-11213bcec74c",
+                "sourceTableId": "cb591adb-3793-4492-b7c8-e7d6f9699a21",
+                "columns": [
+                  {
+                    "id": "fk_85486b3d-de0a-436d-ba64-7fe99ba12f0d",
+                    "name": "GuestID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_d80a1d17-a04e-41bf-9fa7-e8d3188a34c9",
+              "name": "fk_Room",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "4ab14639-2279-4130-ad53-f40f2766c57c",
+                "sourceTableId": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+                "columns": [
+                  {
+                    "id": "fk_f50fe302-e447-4b41-bb54-ac30c4236a03",
+                    "name": "Room_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_da1c57aa-d43b-4d02-8c32-ce5559e47223",
+              "name": "fk_Payment",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "aec2f7a1-b05e-46ff-ac9b-d333bbaa9834",
+                "sourceTableId": "19fa222f-5b89-4646-859f-016d2e0b9e1c",
+                "columns": [
+                  {
+                    "id": "fk_688af42d-d38a-40af-9efb-71ba8b4e4b62",
+                    "name": "Payment_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_ba926f87-bc91-4e7c-9071-125b7c44820c",
+              "name": "fk_Recepsionist",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "4b9dbb46-f251-437d-8cd3-8edcdddb55e9",
+                "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+                "columns": [
+                  {
+                    "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                    "name": "Recepsionist_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 252
+        },
+        "selected": false
+      },
+      {
+        "id": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+        "type": "Table",
+        "position": {
+          "x": 924.9954888839036,
+          "y": 539.4080165379222
+        },
+        "data": {
+          "label": "Recepsionist",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "3a0017fc-0fa1-4a75-af30-9045d36d071b",
+              "name": "Recepsionist_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "470f9a03-e8e5-4560-ab6c-37d806b726bf",
+              "name": "Name",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "2e410a8d-1bdc-42d1-b672-b1c7eefc25a8",
+              "name": "Email",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "ffa56fe6-a73b-4186-83a5-4b12058d95f0",
+              "name": "Password",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "cc238eb6-312e-4440-b035-1d883a90b39b",
+              "name": "Shift_Type",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 151
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+        "type": "Table",
+        "position": {
+          "x": 1279.8935580502136,
+          "y": 128.69955616841048
+        },
+        "data": {
+          "label": "Room",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "f50fe302-e447-4b41-bb54-ac30c4236a03",
+              "name": "Room_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "7185e6de-3c0f-4da2-980f-5ebb5954b62f",
+              "name": "Room_Number",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "c12874dd-2abd-4113-8346-44f786be2a6a",
+              "name": "Floor",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "949b1831-c4e9-4595-a109-87a591b0d21a",
+              "name": "Status",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_9e747204-c833-46cd-88bc-4839a54a2c6d",
+              "name": "fk_Room Type",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "d8b24465-3c0e-44a5-b295-2677b3deb0b8",
+                "sourceTableId": "c0ce09dc-b296-488d-bfcf-ed734c7106ba",
+                "columns": [
+                  {
+                    "id": "fk_c561dd37-62e9-4bd5-a4f9-57a0690268b4",
+                    "name": "Type_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 152
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "19fa222f-5b89-4646-859f-016d2e0b9e1c",
+        "type": "Table",
+        "position": {
+          "x": 1297.1338080049807,
+          "y": 315.5179483134365
+        },
+        "data": {
+          "label": "Payment",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "688af42d-d38a-40af-9efb-71ba8b4e4b62",
+              "name": "Payment_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "b3404204-0c51-411c-b5c4-703e3d565bef",
+              "name": "Amount",
+              "type": "NUMERIC(p s)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "f0a4db13-4d43-4dcd-8c4c-0a73387981ab",
+              "name": "Payment_Date",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "5e07178a-3a68-45b8-8431-234cb2638c1c",
+              "name": "Payment_Method",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "ec9440a5-cedd-4e94-aac0-eb9d59717c5a",
+              "name": "Status",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_1715fd6a-5bb5-4adf-8ab1-18dc7b01d317",
+              "name": "fk_Recepsionist",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "b5e7a981-d87d-4f39-b404-9e12fe2cc425",
+                "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+                "columns": [
+                  {
+                    "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                    "name": "Recepsionist_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 177
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "c0ce09dc-b296-488d-bfcf-ed734c7106ba",
+        "type": "Table",
+        "position": {
+          "x": 1630,
+          "y": 95
+        },
+        "data": {
+          "label": "Room Type",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "c561dd37-62e9-4bd5-a4f9-57a0690268b4",
+              "name": "Type_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "3d6da83b-9ff0-4408-bd21-4e5cfcf6793f",
+              "name": "Category_Name",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "3dce6802-c272-4f32-aaf2-1e2b62954733",
+              "name": "Base_Price",
+              "type": "NUMERIC(p s)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "254112c2-cd47-4672-9c43-56a9b81c2705",
+              "name": "Amenities_Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "9aa864e3-cab4-4faa-bc4b-7643fa1aa217",
+              "name": "Capacity",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": false
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 151
+        },
+        "selected": false
+      },
+      {
+        "id": "3aaad349-c9c4-4d29-a629-8f2478d0d86c",
+        "type": "Table",
+        "position": {
+          "x": 1945.0303403213254,
+          "y": 338.71796891783225
+        },
+        "data": {
+          "label": "System Log",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "77d7c5a2-d7fb-46b9-8b27-3fb13a4ced7e",
+              "name": "Log_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "5b2a131a-98e9-45aa-9f38-0c5e7a5f77c5",
+              "name": "Activity_Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "5cf09ac4-cca8-43fb-a424-0125468ff5a7",
+              "name": "Timestamp",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_39c61ff8-fce0-4f23-ab33-c08274b3c66e",
+              "name": "fk_Administrator",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "7a265fdb-77dd-4f21-a0cb-7561782b5a9b",
+                "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+                "columns": [
+                  {
+                    "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                    "name": "Administrator_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 127
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "ef5ae394-1d77-4ec0-95b0-6c565bf9618e",
+        "type": "Table",
+        "position": {
+          "x": 1947.3858723131964,
+          "y": 536.4969567056726
+        },
+        "data": {
+          "label": "Report",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "45072145-691e-4f31-b9de-1bd2e585408c",
+              "name": "Report_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "f025ca5d-d5c7-4a18-a7f0-c6e0f60269e8",
+              "name": "Report_Type",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "128bbd5f-9522-4a7b-bab0-b78cbf34fc11",
+              "name": "Generated_Date",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "e3cec5c6-ff15-41d0-800a-2c30158b6c11",
+              "name": "Time_Period",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "01bd8043-52fc-4c75-a9fc-4162d5fb283d",
+              "name": "Data_Content",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_76eb7350-4079-4d8b-b56a-3eb5d521cf00",
+              "name": "fk_Administrator",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "08cd3795-3bf8-4472-a646-0617d4785f14",
+                "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+                "columns": [
+                  {
+                    "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                    "name": "Administrator_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 177
+        },
+        "selected": true,
+        "dragging": false
+      },
+      {
+        "id": "a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2",
+        "type": "Table",
+        "position": {
+          "x": 1300,
+          "y": 605
+        },
+        "data": {
+          "label": "Maintenance Request",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "8ab6ea44-8c20-46fc-b33d-8263466f7845",
+              "name": "Request_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "ea04e5ac-3922-4728-8232-0660fe0d508a",
+              "name": "Issue_Description",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "c1865072-29d9-4b1e-8457-7061cd4f79a6",
+              "name": "Priority_Level",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "ba7974c4-8c4e-43cc-97a9-5003d18c2844",
+              "name": "Status",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "ea206afb-cbb9-475c-8f91-cb0cf09577d0",
+              "name": "Date_Reported",
+              "type": "DATE",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "0ee1a661-049f-4cb9-97f9-1c1f164d3b75",
+              "name": "Cost_Estimate",
+              "type": "NUMERIC(p s)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "fk_e14dad81-0605-4d94-84c3-e74768cbb65f",
+              "name": "fk_Room",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "c69effd4-dfe4-419c-bc0a-e47b5e4d9c30",
+                "sourceTableId": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+                "columns": [
+                  {
+                    "id": "fk_f50fe302-e447-4b41-bb54-ac30c4236a03",
+                    "name": "Room_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_c2ca03bc-d592-4c7a-aa72-f71a236195d4",
+              "name": "fk_Recepsionist",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "4c9c8a59-e67b-49d0-b8fb-241acae9d9b8",
+                "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+                "columns": [
+                  {
+                    "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                    "name": "Recepsionist_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "fk_00792cf1-902d-43a4-ad91-20ee2e2eb037",
+              "name": "fk_Administrator",
+              "type": "None",
+              "isForeignKey": true,
+              "foreignKeyProps": {
+                "foreignKeyGroupId": "65ec542f-bb9f-4939-ade9-6744301d7979",
+                "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+                "columns": [
+                  {
+                    "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                    "name": "Administrator_ID",
+                    "type": "INT"
+                  }
+                ]
+              }
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 252
+        },
+        "selected": false
+      },
+      {
+        "id": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+        "type": "Table",
+        "position": {
+          "x": 1641.3701500090103,
+          "y": 347.8981740234035
+        },
+        "data": {
+          "label": "Administrator",
+          "isConnectable": false,
+          "columns": [
+            {
+              "id": "3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+              "name": "Administrator_ID",
+              "type": "INT",
+              "position": 0,
+              "isPrimaryKey": true,
+              "isOptional": false
+            },
+            {
+              "id": "9b0cb8eb-ea62-42af-a04a-46521dd3a92b",
+              "name": "Email",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "c4b532e2-1666-4bec-8732-a43bdb681937",
+              "name": "Name",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            },
+            {
+              "id": "25268c9a-7d5b-44aa-bac2-3678cd3134eb",
+              "name": "Password",
+              "type": "VARCHAR(n)",
+              "position": 0,
+              "isPrimaryKey": false
+            }
+          ],
+          "isSelected": false
+        },
+        "measured": {
+          "width": 240,
+          "height": 126
+        },
+        "selected": false,
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "cb591adb-3793-4492-b7c8-e7d6f9699a21->025c7b28-0343-4b00-a71d-f97285024b65_690a12cc-9fa9-4183-8d22-11213bcec74c",
+        "type": "Relational",
+        "source": "cb591adb-3793-4492-b7c8-e7d6f9699a21",
+        "targetHandle": "foreign-key-handle-690a12cc-9fa9-4183-8d22-11213bcec74c",
+        "target": "025c7b28-0343-4b00-a71d-f97285024b65",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "690a12cc-9fa9-4183-8d22-11213bcec74c",
+            "sourceTableId": "cb591adb-3793-4492-b7c8-e7d6f9699a21",
+            "columns": [
+              {
+                "id": "fk_85486b3d-de0a-436d-ba64-7fe99ba12f0d",
+                "name": "GuestID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5->025c7b28-0343-4b00-a71d-f97285024b65_4ab14639-2279-4130-ad53-f40f2766c57c",
+        "type": "Relational",
+        "source": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+        "targetHandle": "foreign-key-handle-4ab14639-2279-4130-ad53-f40f2766c57c",
+        "target": "025c7b28-0343-4b00-a71d-f97285024b65",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "4ab14639-2279-4130-ad53-f40f2766c57c",
+            "sourceTableId": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+            "columns": [
+              {
+                "id": "fk_f50fe302-e447-4b41-bb54-ac30c4236a03",
+                "name": "Room_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "19fa222f-5b89-4646-859f-016d2e0b9e1c->025c7b28-0343-4b00-a71d-f97285024b65_aec2f7a1-b05e-46ff-ac9b-d333bbaa9834",
+        "type": "Relational",
+        "source": "19fa222f-5b89-4646-859f-016d2e0b9e1c",
+        "targetHandle": "foreign-key-handle-aec2f7a1-b05e-46ff-ac9b-d333bbaa9834",
+        "target": "025c7b28-0343-4b00-a71d-f97285024b65",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "aec2f7a1-b05e-46ff-ac9b-d333bbaa9834",
+            "sourceTableId": "19fa222f-5b89-4646-859f-016d2e0b9e1c",
+            "columns": [
+              {
+                "id": "fk_688af42d-d38a-40af-9efb-71ba8b4e4b62",
+                "name": "Payment_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "c0ce09dc-b296-488d-bfcf-ed734c7106ba->b78e3c64-8cf0-47a3-a430-9c8d8840a1e5_d8b24465-3c0e-44a5-b295-2677b3deb0b8",
+        "type": "Relational",
+        "source": "c0ce09dc-b296-488d-bfcf-ed734c7106ba",
+        "targetHandle": "foreign-key-handle-d8b24465-3c0e-44a5-b295-2677b3deb0b8",
+        "target": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "d8b24465-3c0e-44a5-b295-2677b3deb0b8",
+            "sourceTableId": "c0ce09dc-b296-488d-bfcf-ed734c7106ba",
+            "columns": [
+              {
+                "id": "fk_c561dd37-62e9-4bd5-a4f9-57a0690268b4",
+                "name": "Type_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5->a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2_c69effd4-dfe4-419c-bc0a-e47b5e4d9c30",
+        "type": "Relational",
+        "source": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+        "targetHandle": "foreign-key-handle-c69effd4-dfe4-419c-bc0a-e47b5e4d9c30",
+        "target": "a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "c69effd4-dfe4-419c-bc0a-e47b5e4d9c30",
+            "sourceTableId": "b78e3c64-8cf0-47a3-a430-9c8d8840a1e5",
+            "columns": [
+              {
+                "id": "fk_f50fe302-e447-4b41-bb54-ac30c4236a03",
+                "name": "Room_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cd155a46-1636-4caa-a74d-ceb0849ba3ba->025c7b28-0343-4b00-a71d-f97285024b65_4b9dbb46-f251-437d-8cd3-8edcdddb55e9",
+        "type": "Relational",
+        "source": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+        "targetHandle": "foreign-key-handle-4b9dbb46-f251-437d-8cd3-8edcdddb55e9",
+        "target": "025c7b28-0343-4b00-a71d-f97285024b65",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "4b9dbb46-f251-437d-8cd3-8edcdddb55e9",
+            "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+            "columns": [
+              {
+                "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                "name": "Recepsionist_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cd155a46-1636-4caa-a74d-ceb0849ba3ba->19fa222f-5b89-4646-859f-016d2e0b9e1c_b5e7a981-d87d-4f39-b404-9e12fe2cc425",
+        "type": "Relational",
+        "source": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+        "targetHandle": "foreign-key-handle-b5e7a981-d87d-4f39-b404-9e12fe2cc425",
+        "target": "19fa222f-5b89-4646-859f-016d2e0b9e1c",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "b5e7a981-d87d-4f39-b404-9e12fe2cc425",
+            "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+            "columns": [
+              {
+                "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                "name": "Recepsionist_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "cd155a46-1636-4caa-a74d-ceb0849ba3ba->a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2_4c9c8a59-e67b-49d0-b8fb-241acae9d9b8",
+        "type": "Relational",
+        "source": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+        "targetHandle": "foreign-key-handle-4c9c8a59-e67b-49d0-b8fb-241acae9d9b8",
+        "target": "a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "4c9c8a59-e67b-49d0-b8fb-241acae9d9b8",
+            "sourceTableId": "cd155a46-1636-4caa-a74d-ceb0849ba3ba",
+            "columns": [
+              {
+                "id": "fk_3a0017fc-0fa1-4a75-af30-9045d36d071b",
+                "name": "Recepsionist_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "36033879-f4a0-43a2-9a79-e3d1084afed9->3aaad349-c9c4-4d29-a629-8f2478d0d86c_7a265fdb-77dd-4f21-a0cb-7561782b5a9b",
+        "type": "Relational",
+        "source": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+        "targetHandle": "foreign-key-handle-7a265fdb-77dd-4f21-a0cb-7561782b5a9b",
+        "target": "3aaad349-c9c4-4d29-a629-8f2478d0d86c",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "7a265fdb-77dd-4f21-a0cb-7561782b5a9b",
+            "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+            "columns": [
+              {
+                "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                "name": "Administrator_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "36033879-f4a0-43a2-9a79-e3d1084afed9->ef5ae394-1d77-4ec0-95b0-6c565bf9618e_08cd3795-3bf8-4472-a646-0617d4785f14",
+        "type": "Relational",
+        "source": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+        "targetHandle": "foreign-key-handle-08cd3795-3bf8-4472-a646-0617d4785f14",
+        "target": "ef5ae394-1d77-4ec0-95b0-6c565bf9618e",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "08cd3795-3bf8-4472-a646-0617d4785f14",
+            "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+            "columns": [
+              {
+                "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                "name": "Administrator_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "36033879-f4a0-43a2-9a79-e3d1084afed9->a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2_65ec542f-bb9f-4939-ade9-6744301d7979",
+        "type": "Relational",
+        "source": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+        "targetHandle": "foreign-key-handle-65ec542f-bb9f-4939-ade9-6744301d7979",
+        "target": "a12371c9-b75b-4f3c-9d5c-81c7ae1e0fe2",
+        "markerStart": {
+          "type": "arrow"
+        },
+        "data": {
+          "foreignKeyProps": {
+            "foreignKeyGroupId": "65ec542f-bb9f-4939-ade9-6744301d7979",
+            "sourceTableId": "36033879-f4a0-43a2-9a79-e3d1084afed9",
+            "columns": [
+              {
+                "id": "fk_3eef8028-0654-4f9b-ac20-2eb6edfd33d9",
+                "name": "Administrator_ID",
+                "type": "INT"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "viewport": {
+      "x": -195.83613874729713,
+      "y": 43.520356268133526,
+      "zoom": 0.6541683957576058
+    }
+  },
+  "name": "hotelmanagement DBRS",
+  "folder": {
+    "name": "Diagrams",
+    "folderType": 1,
+    "depth": 0,
+    "id": 298126
+  },
+  "id": 410564,
+  "updatedAtTimestamp": 1776189121
+}
