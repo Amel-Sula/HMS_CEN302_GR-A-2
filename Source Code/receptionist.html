@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grand HMS – Receptionist</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div id="sidebar" class="sidebar"></div>
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">Receptionist Dashboard</div>
+      <div class="topbar-user" id="topbar-user"></div>
+    </div>
+    <div class="page-body">
+      <div class="page-header"><h2>Dashboard</h2><p>Today's overview – <span id="today-date"></span></p></div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Checked In Today</div>
+          <div class="stat-value" id="stat-checkin">0</div>
+          <div class="stat-sub">Active guests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Arriving Today</div>
+          <div class="stat-value" id="stat-arriving">0</div>
+          <div class="stat-sub">Expected check-ins</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Departing Today</div>
+          <div class="stat-value" id="stat-departing">0</div>
+          <div class="stat-sub">Scheduled check-outs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Available Rooms</div>
+          <div class="stat-value" id="stat-available">0</div>
+          <div class="stat-sub">Ready to assign</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="reservations">All Reservations</button>
+        <button class="tab-btn" data-tab="checkin">Check-In / Out</button>
+        <button class="tab-btn" data-tab="walkin">Walk-In Booking</button>
+      </div>
+
+      <!-- Reservations Tab -->
+      <div id="tab-reservations">
+        <div class="filter-bar">
+          <input type="text" id="search-guest" placeholder="Search guest name..." style="width:200px;" />
+          <select id="status-filter">
+            <option value="">All Statuses</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="checked-in">Checked In</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-dark btn-sm" id="assign-room-btn">Assign Room</button>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table id="res-table">
+              <thead>
+                <tr>
+                  <th>ID</th><th>Guest</th><th>Room</th><th>Check-In</th><th>Check-Out</th><th>Status</th><th>Total</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="res-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Check-In/Out Tab -->
+      <div id="tab-checkin" class="hidden">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="card">
+            <div class="card-header"><h3>Check-In Guest</h3></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Reservation ID</label>
+                <input type="text" id="ci-res-id" class="form-control" placeholder="e.g. R003" />
+              </div>
+              <div id="ci-preview" style="background:#f9f9f9;border-radius:6px;padding:12px;font-size:13.5px;margin-bottom:12px;display:none;"></div>
+              <div id="ci-msg"></div>
+              <button class="btn btn-success btn-full" id="do-checkin">Check In Guest</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Check-Out Guest</h3></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label>Reservation ID</label>
+                <input type="text" id="co-res-id" class="form-control" placeholder="e.g. R004" />
+              </div>
+              <div id="co-preview" style="background:#f9f9f9;border-radius:6px;padding:12px;font-size:13.5px;margin-bottom:12px;display:none;"></div>
+              <div id="co-msg"></div>
+              <button class="btn btn-dark btn-full" id="do-checkout">Check Out Guest</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Walk-In Tab -->
+      <div id="tab-walkin" class="hidden">
+        <div class="card" style="max-width:520px;">
+          <div class="card-header"><h3>New Walk-In Reservation</h3></div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Guest Name</label>
+              <input type="text" id="wi-name" class="form-control" placeholder="Full name" />
+            </div>
+            <div class="form-group">
+              <label>Guest Email</label>
+              <input type="email" id="wi-email" class="form-control" placeholder="email@example.com" />
+            </div>
+            <div class="form-group">
+              <label>Select Room</label>
+              <select id="wi-room" class="form-control">
+                <option value="">-- Select available room --</option>
+              </select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+              <div class="form-group">
+                <label>Check-In</label>
+                <input type="date" id="wi-ci" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Check-Out</label>
+                <input type="date" id="wi-co" class="form-control" />
+              </div>
+            </div>
+            <div id="wi-price" style="font-weight:600;font-size:15px;margin-bottom:12px;"></div>
+            <div id="wi-msg"></div>
+            <button class="btn btn-dark btn-full" id="wi-submit">Create Reservation & Check In</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Res Modal -->
+<div class="modal-backdrop hidden" id="update-modal">
+  <div class="modal">
+    <button class="modal-close" id="update-close">✕</button>
+    <h3>Update Reservation</h3>
+    <input type="hidden" id="update-res-id" />
+    <div class="form-group"><label>Check-In</label><input type="date" id="update-ci" class="form-control" /></div>
+    <div class="form-group"><label>Check-Out</label><input type="date" id="update-co" class="form-control" /></div>
+    <div class="form-group"><label>Notes</label><textarea id="update-notes" class="form-control" rows="2"></textarea></div>
+    <div id="update-error"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="update-cancel">Cancel</button>
+      <button class="btn btn-dark" id="save-update">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/pages/receptionist.js"></script>
+</body>
+</html>

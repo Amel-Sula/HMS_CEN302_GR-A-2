@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grand HMS – My Reservations</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-layout">
+  <div id="sidebar" class="sidebar"></div>
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title">View Reservations</div>
+      <div class="topbar-user" id="topbar-user"></div>
+    </div>
+    <div class="page-body">
+      <div class="page-header">
+        <h2>View Reservations</h2>
+        <p id="show-label">Show: All reservations</p>
+      </div>
+
+      <div class="filter-bar">
+        <select id="status-filter">
+          <option value="">All Reservations</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="checked-in">Checked In</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+          <h4 style="margin:0;">Your Reservations Calendar</h4>
+          <div style="display:flex;gap:12px;font-size:12px;">
+            <span><span style="display:inline-block;width:12px;height:12px;background:#d4f5d4;border-radius:2px;margin-right:4px;"></span>Confirmed</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#dbeafe;border-radius:2px;margin-right:4px;"></span>Checked-In</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#f0f0f0;border-radius:2px;margin-right:4px;"></span>Completed</span>
+            <span><span style="display:inline-block;width:12px;height:12px;background:#ffe0e0;border-radius:2px;margin-right:4px;"></span>Cancelled</span>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;justify-content:center;">
+          <div id="main-calendar"></div>
+        </div>
+      </div>
+
+      <div id="reservations-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modify Modal -->
+<div class="modal-backdrop hidden" id="modify-modal">
+  <div class="modal">
+    <button class="modal-close" id="modify-close">✕</button>
+    <h3>Modify Reservation</h3>
+    <input type="hidden" id="modify-res-id" />
+    <div class="form-group">
+      <label>Check-In</label>
+      <input type="date" id="modify-ci" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Check-Out</label>
+      <input type="date" id="modify-co" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="modify-notes" class="form-control" rows="2"></textarea>
+    </div>
+    <div id="modify-price" style="font-weight:600;font-size:15px;margin-top:8px;"></div>
+    <div id="modify-error" class="mt-2"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="modify-cancel">Cancel</button>
+      <button class="btn btn-dark" id="save-modify">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel confirm modal -->
+<div class="modal-backdrop hidden" id="cancel-modal">
+  <div class="modal" style="max-width:360px;">
+    <button class="modal-close" id="cancel-close">✕</button>
+    <h3>Cancel Reservation</h3>
+    <p style="color:#555;font-size:14px;margin-bottom:16px;">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+    <input type="hidden" id="cancel-res-id" />
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="cancel-no">Keep Booking</button>
+      <button class="btn btn-danger" id="cancel-yes">Yes, Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/pages/my-reservations.js"></script>
+</body>
+</html>
