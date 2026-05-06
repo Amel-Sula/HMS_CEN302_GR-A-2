@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HMS — Component Diagram (UML)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f4f6f9;
+  --white: #ffffff;
+  --black: #0a0a0a;
+  --border: #1a1a2e;
+  --border-light: #c5ccd8;
+  --border-mid: #8892a4;
+  --blue-dark: #1a1a2e;
+  --blue-mid:  #16213e;
+  --accent:    #0f3460;
+  --label-bg:  #e8ecf3;
+
+  --col-ctrl:  #1a237e;
+  --col-svc:   #0d47a1;
+  --col-model: #01579b;
+  --col-client:#2e7d32;
+  --col-db:    #4a148c;
+
+  --sans: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--sans);
+  color: var(--black);
+  padding: 32px 24px 64px;
+  min-height: 100vh;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.page-header h1 {
+  font-size: 15px;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.2px;
+  color: var(--black);
+}
+.page-header h2 {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  margin-top: 14px;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── OUTER DIAGRAM ── */
+.diagram-outer {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* ── CLIENT NODE ── */
+.client-node {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 60px;
+}
+.ext-box {
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: var(--white);
+  padding: 0;
+  width: 110px;
+}
+.ext-box-title {
+  background: var(--col-client);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: center;
+  padding: 3px 4px;
+  letter-spacing: 0.5px;
+  font-family: var(--mono);
+}
+.ext-box-body {
+  padding: 6px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── ARROW CONNECTOR ── */
+.h-arrow {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 6px;
+  gap: 2px;
+  margin-top: 30px;
+}
+.h-arrow-line {
+  width: 44px;
+  height: 1.5px;
+  background: var(--border);
+  position: relative;
+}
+.h-arrow-line::after {
+  content: '▶';
+  position: absolute;
+  right: -8px;
+  top: -6px;
+  font-size: 9px;
+  color: var(--border);
+}
+.h-arrow-line.left::after { content: ''; }
+.h-arrow-line.left::before {
+  content: '◀';
+  position: absolute;
+  left: -8px;
+  top: -6px;
+  font-size: 9px;
+  color: var(--border);
+}
+.h-arrow-label {
+  font-size: 8px;
+  color: var(--border-mid);
+  font-family: var(--mono);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── SERVER SIDE BOX ── */
+.server-box {
+  flex: 1;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  padding: 0;
+  min-width: 0;
+}
+.server-box-title {
+  background: var(--blue-dark);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 5px 12px;
+  font-family: var(--mono);
+  letter-spacing: 1px;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.server-box-title span {
+  font-size: 8px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+.server-inner {
+  padding: 12px 10px 16px;
+  display: flex;
+  gap: 10px;
+}
+
+/* ── COLUMN ── */
+.col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.col-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 4px;
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+.col-ctrl  .col-title { background: var(--col-ctrl); }
+.col-svc   .col-title { background: var(--col-svc); }
+.col-model .col-title { background: var(--col-model); }
+
+.col-body {
+  padding: 6px 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #fdfdff;
+}
+
+/* ── UML COMPONENT BOX ── */
+.comp {
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  background: var(--white);
+  position: relative;
+  padding: 5px 22px 5px 7px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 34px;
+  transition: background .15s;
+}
+.comp:hover { background: #eef2ff; }
+
+.comp-icon {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* UML component icon — two small rectangles on a big rectangle */
+.comp-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.comp-text {
+  flex: 1;
+  min-width: 0;
+}
+.comp-stereotype {
+  font-size: 8px;
+  color: var(--border-mid);
+  font-family: var(--mono);
+  display: block;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+.comp-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--black);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* ── DASHED CONNECTOR BETWEEN COLS ── */
+.col-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  flex-shrink: 0;
+  position: relative;
+}
+.col-connector::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  border-left: 1.5px dashed var(--border-light);
+}
+
+/* ── DB NODE ── */
+.db-node {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 60px;
+}
+.db-box {
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: var(--white);
+  padding: 0;
+  width: 115px;
+}
+.db-box-title {
+  background: var(--col-db);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  text-align: center;
+  padding: 3px 4px;
+  letter-spacing: 0.5px;
+  font-family: var(--mono);
+}
+.db-box-body {
+  padding: 6px 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Horizontal dashed line from server to db */
+.h-dashed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  gap: 2px;
+  margin-top: 30px;
+}
+.h-dashed-line {
+  width: 36px;
+  height: 1.5px;
+  background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 4px, transparent 4px, transparent 8px);
+  position: relative;
+}
+.h-dashed-line::after {
+  content: '▶';
+  position: absolute;
+  right: -8px;
+  top: -6px;
+  font-size: 9px;
+  color: var(--border);
+}
+.h-dashed-label {
+  font-size: 8px;
+  color: var(--border-mid);
+  font-family: var(--mono);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Migrations label */
+.migrations-label {
+  font-size: 8px;
+  color: var(--border-mid);
+  font-family: var(--mono);
+  text-align: center;
+  margin-top: 3px;
+}
+
+/* ── FOOTER ── */
+footer {
+  max-width: 1120px;
+  margin: 28px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--border-mid);
+  font-family: var(--mono);
+  border-top: 1px solid var(--border-light);
+  padding-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Hotel Management System Requirements Specification</h1>
+  <h2>4.5.4 Component Diagram</h2>
+</div>
+
+<div class="diagram-outer">
+
+  <!-- CLIENT SIDE -->
+  <div class="client-node">
+    <div class="ext-box">
+      <div class="ext-box-title">Client Side</div>
+      <div class="ext-box-body">
+        <div class="comp" style="width:94px; padding:5px 22px 5px 7px;">
+          <div class="comp-text">
+            <span class="comp-stereotype">«Component»</span>
+            <span class="comp-name">Frontend Content Web Service</span>
+          </div>
+          <div class="comp-icon">
+            <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/>
+              <rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/>
+              <rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrow: Client → Server -->
+  <div class="h-arrow">
+    <div class="h-arrow-line"></div>
+    <div class="h-arrow-line left"></div>
+    <div class="h-arrow-label">Http Request/Response<br/>JSON</div>
+  </div>
+
+  <!-- SERVER SIDE -->
+  <div class="server-box">
+    <div class="server-box-title">
+      Server Side
+      <span>«App.NET APP»</span>
+    </div>
+    <div class="server-inner">
+
+      <!-- CONTROLLERS -->
+      <div class="col col-ctrl">
+        <div class="col-title">Controllers</div>
+        <div class="col-body">
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">AuthenticationController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">UserController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ReservationController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">RoomController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">InvoiceController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">FeedbackController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ServiceController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ServiceOrderController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">CleaningTaskController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">MaintenanceRequest­Controller</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">DashboardController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">PaymentController</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DASHED DIVIDER -->
+      <div class="col-connector"></div>
+
+      <!-- SERVICES -->
+      <div class="col col-svc">
+        <div class="col-title">Services</div>
+        <div class="col-body">
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">AuthenticationService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">UserService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ReservationService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">RoomService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">InvoiceService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">FeedbackService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ServiceService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ServiceOrderService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">CleaningTaskService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">MaintenanceRequest­Service</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">StatisticsService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">PaymentService</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DASHED DIVIDER -->
+      <div class="col-connector"></div>
+
+      <!-- MODELS -->
+      <div class="col col-model">
+        <div class="col-title">Models</div>
+        <div class="col-body">
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ApplicationUser</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Reservation</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">RoomType</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Payment</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Service</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ApplicationRole</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Room</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Invoice</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">Feedback</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">ServiceOrder</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">CleaningTask</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+          <div class="comp">
+            <div class="comp-text">
+              <span class="comp-stereotype">«Component»</span>
+              <span class="comp-name">MaintenanceRequest</span>
+            </div>
+            <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- end server-inner -->
+  </div><!-- end server-box -->
+
+  <!-- DASHED ARROW to DB -->
+  <div class="h-dashed">
+    <div class="h-dashed-line"></div>
+    <div class="h-dashed-label">DbContext<br/>Migrations</div>
+  </div>
+
+  <!-- DATABASE SERVER -->
+  <div class="db-node">
+    <div class="db-box">
+      <div class="db-box-title">Database Server</div>
+      <div class="db-box-body">
+        <div class="comp" style="width:100px; padding:5px 22px 5px 7px;">
+          <div class="comp-text">
+            <span class="comp-stereotype">«Component»</span>
+            <span class="comp-name">Microsoft SQL Server</span>
+          </div>
+          <div class="comp-icon"><svg viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="10" rx="1" stroke="#1a1a2e" stroke-width="1.2" fill="white"/><rect x="-1" y="4" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/><rect x="-1" y="8" width="4" height="2" rx="0.5" stroke="#1a1a2e" stroke-width="1" fill="white"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end diagram-outer -->
+
+<footer>
+  <span>HMS_CEN302_GR-A-2 · Component Diagram · Section 4.5.4</span>
+  <span>March 31, 2025 · Page 106 of 117</span>
+</footer>
+
+</body>
+</html>
