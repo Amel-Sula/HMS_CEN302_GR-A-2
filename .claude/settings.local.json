@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"/c/Users/USER/Desktop/HMS_CEN302_GR-A-2/hms-backend/src/config\")",
+      "Bash(mkdir -p \"/c/Users/USER/Desktop/HMS_CEN302_GR-A-2/hms-backend/src/models\")",
+      "Bash(mkdir -p \"/c/Users/USER/Desktop/HMS_CEN302_GR-A-2/hms-backend/src/middleware\")",
+      "Bash(mkdir -p \"/c/Users/USER/Desktop/HMS_CEN302_GR-A-2/hms-backend/src/services\")",
+      "Bash(mkdir -p \"/c/Users/USER/Desktop/HMS_CEN302_GR-A-2/hms-backend/src/routes\")",
+      "Bash(npm install *)",
+      "Bash(PGPASSWORD=1234 psql -U postgres -h localhost -c \"SELECT version\\(\\);\")",
+      "PowerShell($env:PGPASSWORD = \"1234\"; & \"C:\\\\Program Files\\\\PostgreSQL\\\\17\\\\bin\\\\psql.exe\" -U postgres -h localhost -c \"SELECT version\\(\\);\" 2>&1 | Select-Object -First 5)",
+      "PowerShell(Get-Service *)",
+      "PowerShell($env:PGPASSWORD = \"1234\"; & \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\psql.exe\" -U postgres -h localhost -c \"SELECT 1;\" 2>&1)",
+      "PowerShell(& \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\pg_ctl.exe\" status -D \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\data\" 2>&1)",
+      "PowerShell(cmd /c \"dir /a \"\"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\data\\\\\"\" 2>&1 | head -20\")",
+      "PowerShell(Start-Process -FilePath \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\pg_ctl.exe\" -ArgumentList 'start', '-D', '\"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\data\"', '-l', '\"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\data\\\\log\\\\startup.log\"' -Verb RunAs -Wait -PassThru 2>&1)",
+      "PowerShell(Start-Sleep -Seconds 3; $env:PGPASSWORD = \"1234\"; & \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\psql.exe\" -U postgres -h localhost -c \"SELECT version\\(\\);\" 2>&1)",
+      "PowerShell($env:PGPASSWORD = \"1234\"; & \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\psql.exe\" -U postgres -h localhost -c \"CREATE DATABASE hms_db;\" 2>&1)",
+      "PowerShell(cmd /c \"dir \"\"C:\\\\Users\\\\USER\\\\Desktop\\\\HMS_CEN302_GR-A-2\\\\Source Code\\\\\"\"\")",
+      "PowerShell(sc.exe query \"postgresql-18\" 2>&1)",
+      "PowerShell(sc.exe qc \"postgresql-18\" 2>&1)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:3000/api\" -UseBasicParsing)"
+    ]
+  }
+}
