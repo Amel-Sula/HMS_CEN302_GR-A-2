@@ -1,20 +1,21 @@
-// Sign In Page Logic
-$(function() {
-  // Redirect if already logged in
+$(function () {
   const existing = HMS.getUser();
   if (existing) HMS.redirectByRole(existing.role);
 
-  function doLogin(email, password) {
-    const user = HMS.users.find(u => u.email === email && u.password === password);
-    if (!user) {
-      $('#error-msg').html('<div class="alert alert-danger">Invalid email or password.</div>');
-      return;
+  async function doLogin(email, password) {
+    $('#signin-btn').prop('disabled', true).text('Signing in…');
+    try {
+      const result = await HMS.api('POST', '/auth/login', { email, password });
+      HMS.setUser(result.user);
+      HMS.setToken(result.token);
+      HMS.redirectByRole(result.user.role);
+    } catch (err) {
+      $('#error-msg').html(`<div class="alert alert-danger">${err.message}</div>`);
+      $('#signin-btn').prop('disabled', false).text('Sign In');
     }
-    HMS.setUser(user);
-    HMS.redirectByRole(user.role);
   }
 
-  $('#signin-btn').on('click', function() {
+  $('#signin-btn').on('click', function () {
     const email = $('#email').val().trim();
     const pw = $('#password').val();
     if (!email || !pw) {
@@ -24,11 +25,11 @@ $(function() {
     doLogin(email, pw);
   });
 
-  $('input').on('keypress', function(e) {
+  $('input').on('keypress', function (e) {
     if (e.which === 13) $('#signin-btn').click();
   });
 
-  $('.quick-login').on('click', function() {
+  $('.quick-login').on('click', function () {
     doLogin($(this).data('email'), $(this).data('pw'));
   });
 });

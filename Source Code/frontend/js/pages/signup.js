@@ -1,9 +1,8 @@
-// Sign Up Page Logic
-$(function() {
-  $('#signup-btn').on('click', function() {
-    const name = $('#name').val().trim();
-    const email = $('#email').val().trim();
-    const pw = $('#password').val();
+$(function () {
+  $('#signup-btn').on('click', async function () {
+    const name    = $('#name').val().trim();
+    const email   = $('#email').val().trim();
+    const pw      = $('#password').val();
     const confirm = $('#confirm').val();
 
     if (!name || !email || !pw || !confirm) {
@@ -12,15 +11,18 @@ $(function() {
     if (pw !== confirm) {
       $('#error-msg').html('<div class="alert alert-danger">Passwords do not match.</div>'); return;
     }
-    if (HMS.users.find(u => u.email === email)) {
-      $('#error-msg').html('<div class="alert alert-danger">An account with this email already exists.</div>'); return;
+
+    $(this).prop('disabled', true).text('Creating account…');
+    try {
+      const result = await HMS.api('POST', '/auth/register', { name, email, password: pw });
+      HMS.setUser(result.user);
+      HMS.setToken(result.token);
+      HMS.redirectByRole('guest');
+    } catch (err) {
+      $('#error-msg').html(`<div class="alert alert-danger">${err.message}</div>`);
+      $(this).prop('disabled', false).text('Sign Up');
     }
-    const newUser = { id: HMS.users.length + 1, name, email, password: pw, role: 'guest' };
-    HMS.users.push(newUser);
-    HMS.saveUsers();
-    HMS.setUser(newUser);
-    HMS.redirectByRole('guest');
   });
 
-  $('input').on('keypress', function(e) { if (e.which === 13) $('#signup-btn').click(); });
+  $('input').on('keypress', function (e) { if (e.which === 13) $('#signup-btn').click(); });
 });

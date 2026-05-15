@@ -1,20 +1,16 @@
-$(function() {
+$(function () {
   const user = HMS.requireAuth('guest');
   if (!user) return;
 
   HMS.buildSidebar('rooms');
   $('#topbar-user').html(`<span>${user.name}</span><div class="topbar-avatar">👤</div><button class="logout-btn" onclick="HMS.logout()">⎋</button>`);
 
-  const params = new URLSearchParams(location.search);
-  const roomId = parseInt(params.get('id'));
-  const room = HMS.getRoom(roomId);
+  const params  = new URLSearchParams(location.search);
+  const roomId  = params.get('id');
   const ciParam = params.get('ci') || '';
   const coParam = params.get('co') || '';
 
-  if (!room) {
-    $('#room-detail-content').html('<p>Room not found.</p>'); return;
-  }
-
+  let room = null;
   let favs = JSON.parse(localStorage.getItem('hms_favs') || '[]');
 
   function render() {
@@ -42,8 +38,6 @@ $(function() {
               <span><strong>Capacity:</strong> ${room.capacity} guest${room.capacity > 1 ? 's' : ''}</span>
             </div>
           </div>
-
-          <!-- Check-in/out fields like Figma -->
           <div style="display:flex;gap:16px;margin-bottom:16px;align-items:flex-end;">
             <div>
               <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Check-In</label>
@@ -54,11 +48,9 @@ $(function() {
               <input type="date" id="co-input" class="form-control" style="width:160px;" value="${coParam}" />
             </div>
           </div>
-
           <button class="btn btn-dark btn-full" id="book-btn" ${room.status !== 'available' ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
             ${room.status === 'available' ? 'Book This Room' : 'Room Unavailable'}
           </button>
-
           <div class="mt-4">
             <div class="accordion-item">
               <div class="accordion-header">Room Policies <span>∧</span></div>
@@ -70,10 +62,9 @@ $(function() {
             </div>
           </div>
         </div>
-      </div>
-    `);
+      </div>`);
 
-    $('#fav-btn').on('click', function(e) {
+    $('#fav-btn').on('click', function (e) {
       e.stopPropagation();
       if (favs.includes(room.id)) favs = favs.filter(f => f !== room.id);
       else favs.push(room.id);
@@ -81,33 +72,24 @@ $(function() {
       $(this).toggleClass('active');
     });
 
-    $('.accordion-header').on('click', function() {
+    $('.accordion-header').on('click', function () {
       $(this).next('.accordion-body').slideToggle(150);
     });
 
-    $('#book-btn').on('click', function() {
-      const ci = $('#ci-input').val();
-      const co = $('#co-input').val();
-      $('#book-ci').val(ci);
-      $('#book-co').val(co);
+    $('#book-btn').on('click', function () {
+      const ci = $('#ci-input').val(), co = $('#co-input').val();
+      $('#book-ci').val(ci); $('#book-co').val(co);
       $('#book-summary').html(`<strong>Room ${room.number}</strong> – ${room.name}<br>$${room.price}/night`);
       updateBookPrice();
       $('#book-modal').removeClass('hidden');
-    });
-
-    $('#ci-input, #co-input').on('change', function() {
-      const ci = new Date($('#ci-input').val()), co = new Date($('#co-input').val());
-      if (ci && co && co > ci) {
-        const nights = HMS.nights($('#ci-input').val(), $('#co-input').val());
-      }
     });
   }
 
   function updateBookPrice() {
     const ci = $('#book-ci').val(), co = $('#book-co').val();
-    if (ci && co) {
+    if (ci && co && new Date(co) > new Date(ci)) {
       const n = HMS.nights(ci, co);
-      $('#book-price-preview').text(`Total: $${room.price * n} (${n} night${n > 1 ? 's' : ''})`);
+      $('#book-price-preview').text(`Total: $${(room.price * n).toFixed(2)} (${n} night${n > 1 ? 's' : ''})`);
     } else {
       $('#book-price-preview').text('');
     }
@@ -117,7 +99,7 @@ $(function() {
 
   $('#modal-close, #modal-cancel').on('click', () => $('#book-modal').addClass('hidden'));
 
-  $('#confirm-book').on('click', function() {
+  $('#confirm-book').on('click', async function () {
     const ci = $('#book-ci').val(), co = $('#book-co').val();
     if (!ci || !co) {
       $('#book-error').html('<div class="alert alert-danger">Please select check-in and check-out dates.</div>'); return;
@@ -125,23 +107,32 @@ $(function() {
     if (new Date(co) <= new Date(ci)) {
       $('#book-error').html('<div class="alert alert-danger">Check-out must be after check-in.</div>'); return;
     }
-    const nights = HMS.nights(ci, co);
-    const newRes = {
-      id: 'R' + String(HMS.reservations.length + 1).padStart(3, '0'),
-      guestId: user.id, guestName: user.name,
-      roomId: room.id, roomNumber: room.number,
-      checkIn: ci, checkOut: co,
-      status: 'confirmed',
-      totalPrice: room.price * nights,
-      createdAt: new Date().toISOString().split('T')[0],
-      notes: $('#book-notes').val()
-    };
-    HMS.reservations.push(newRes);
-    HMS.saveReservations();
-    $('#book-modal').addClass('hidden');
-    HMS.toast('Booking confirmed! ✓', 'success');
-    setTimeout(() => window.location.href = 'my-reservations.html', 1200);
+    $(this).prop('disabled', true).text('Booking…');
+    try {
+      await HMS.api('POST', '/reservations', {
+        roomId: room.id,
+        checkIn: ci,
+        checkOut: co,
+        notes: $('#book-notes').val(),
+      });
+      $('#book-modal').addClass('hidden');
+      HMS.toast('Booking confirmed! ✓', 'success');
+      setTimeout(() => window.location.href = 'my-reservations.html', 1200);
+    } catch (err) {
+      $('#book-error').html(`<div class="alert alert-danger">${err.message}</div>`);
+      $(this).prop('disabled', false).text('Confirm Booking');
+    }
   });
 
-  render();
+  // Load room from API
+  (async () => {
+    if (!roomId) { $('#room-detail-content').html('<p>Room not found.</p>'); return; }
+    try {
+      const data = await HMS.api('GET', `/rooms/${roomId}`);
+      room = HMS.normalizeRoom(data);
+      render();
+    } catch (err) {
+      $('#room-detail-content').html(`<p>Could not load room: ${err.message}</p>`);
+    }
+  })();
 });
